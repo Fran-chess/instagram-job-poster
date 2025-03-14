@@ -1,0 +1,65 @@
+erDiagram
+    Users ||--o{ Posts : "crea"
+    Posts ||--o{ PostLog : "genera"
+    Templates ||--o{ Posts : "usa"
+    ScheduleSettings ||--o{ Posts : "programa"
+    
+    Users {
+        int user_id PK
+        string username
+        string email
+        string full_name
+        datetime last_login
+        bool is_active
+    }
+    
+    Templates {
+        int template_id PK
+        string name
+        string description
+        string background_color
+        string text_color
+        string footer_text
+        blob template_image
+        datetime created_at
+        bool is_active
+    }
+    
+    Posts {
+        int post_id PK
+        int user_id FK
+        int template_id FK
+        string job_title
+        string location
+        string email
+        text requirements
+        int position_priority
+        int location_priority
+        int email_priority
+        int requirements_priority
+        blob generated_image
+        string instagram_post_id
+        string status
+        datetime created_at
+        datetime scheduled_for
+        datetime published_at
+    }
+    
+    PostLog {
+        int log_id PK
+        int post_id FK
+        string action
+        string status
+        text error_message
+        datetime timestamp
+    }
+    
+    ScheduleSettings {
+        int schedule_id PK
+        int post_id FK
+        datetime scheduled_time
+        string frequency
+        string recurrence_pattern
+        datetime end_date
+        bool is_active
+    }
